@@ -1,0 +1,13 @@
+services:
+  pko_aword:
+    build: .
+    container_name: pko_aword
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    external: true

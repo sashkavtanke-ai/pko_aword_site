@@ -1,0 +1,169 @@
+/* Header styles */
+.header {
+  background: linear-gradient(135deg, #0D2B4D 0%, #0074B2 100%);
+  color: white;
+  padding: 1.2rem 0;
+  box-shadow: 0 4px 15px rgba(13, 43, 77, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(74, 135, 21, 0.1) 0%, rgba(74, 135, 21, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -80%;
+  left: 30%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(0, 116, 178, 0.15) 0%, rgba(0, 116, 178, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center; /* Changed from space-between to center */
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(0, 116, 178, 0.2) 0%, rgba(13, 43, 77, 0.1) 100%);
+  border-left: 3px solid #0074B2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, rgba(0, 116, 178, 0.3) 0%, rgba(13, 43, 77, 0.2) 100%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo-icon {
+  color: #0074B2;
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.logo:hover .logo-icon {
+  transform: rotate(15deg);
+  color: #4A8715;
+}
+
+/* Navigation styles */
+.nav {
+  display: flex;
+  gap: 1.8rem;
+  justify-content: center; /* Added to center the navigation items */
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  position: relative;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  margin: 0 0.2rem;
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  color: white;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9)); /* Changed from green/blue to white */
+  transition: width 0.3s ease, opacity 0.3s ease;
+  border-radius: 3px;
+  opacity: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+  opacity: 1;
+}
+
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.2); /* Changed from blue to white */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: white; /* Ensure text is white */
+}
+
+.nav-link.active::after {
+  width: 90%;
+  opacity: 1;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9)); /* Changed from green/blue to white */
+}
+
+/* Mobile menu styles */
+.mobile-menu-btn {
+  display: none; /* Hide by default on all screens */
+  background: rgba(0, 116, 178, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 1100;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 45px;
+  height: 45px;
+  /* Remove the display: flex from here */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(13, 43, 77, 0.2);
+}
+
+.mobile-menu-btn:hover {
+  background-color: rgba(0, 116, 178, 0.4);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 18px rgba(13, 43, 77, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}

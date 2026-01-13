@@ -1,0 +1,11 @@
+/* Main CSS file that imports all modules */
+@import './base.css';
+@import './header.css';
+@import './cards.css';
+@import './footer.css';
+@import './forms.css';
+@import './home.css';
+@import './utilities.css';
+@import './animations.css';
+@import './responsive.css';
+@import './faq.css';
