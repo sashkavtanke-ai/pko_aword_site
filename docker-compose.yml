@@ -9,5 +9,5 @@ services:
       - edge_net
 
 networks:
-  n8n_network:
+  edge_net:
     external: true
