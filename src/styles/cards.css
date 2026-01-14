@@ -13,18 +13,38 @@
   overflow: visible;
 }
 
-/* Все страницы — одинаковая сетка */
+/* Все страницы — одинаковая сетка (по умолчанию 2 колонки) */
 .home-page .card-container,
-.about-page .card-container,
 .services-page .card-container,
 .documents-page .card-container,
 .contacts-page .card-container,
 .debtors-page .card-container {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* About — 3 колонки */
+.about-page .card-container {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* Последняя карточка, если одна в строке */
+/* Последняя карточка на всю строку — только для 2-колоночных страниц */
 .card-container > *:last-child:nth-child(2n+1) {
+  grid-column: 1 / -1;
+  max-width: 650px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ОТМЕНА этого поведения на About (там 3 колонки) */
+.about-page .card-container > *:last-child:nth-child(2n+1) {
+  grid-column: auto;
+  max-width: none;
+  margin: 0;
+  width: auto;
+}
+
+/* Если на About вдруг будет “одна карточка в последней строке” — можно растянуть красиво */
+.about-page .card-container > *:last-child:nth-child(3n+1) {
   grid-column: 1 / -1;
   max-width: 650px;
   margin: 0 auto;
@@ -212,4 +232,16 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .about-page .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .about-page .card-container {
+    grid-template-columns: 1fr;
+  }
 }
