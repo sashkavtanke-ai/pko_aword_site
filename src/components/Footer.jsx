@@ -41,11 +41,11 @@ const Footer = () => {
             <h3 className="footer-title">Контакты</h3>
             <ul className="footer-links">
               <li className="footer-link">
-                <FaPhone /> <a href="tel:+79817638900">8 981 763 89 00</a>
+                <FaPhone /> <a href="tel:88004441301">8 800 444 13 01</a>
                 <div className="small">Пн-Пт: 9:00-18:00</div>
               </li>
               <li className="footer-link">
-                <FaEnvelope /> <a href="mailto:george_pc@bk.ru">george_pc@bk.ru</a>
+                <FaEnvelope /> <a href="mailto:info@pko-aword.ru">info@pko-aword.ru</a>
               </li>
               <li className="footer-link">
                 <FaMapMarkerAlt /> 197342, город Санкт-Петербург, Торжковская ул, д. 5 литера А, помещ. 13-н ком. 93 

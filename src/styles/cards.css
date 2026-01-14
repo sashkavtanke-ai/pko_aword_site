@@ -1,13 +1,19 @@
-/* Card styles */
+/* =========================
+   Card container
+   ========================= */
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
   width: 100%;
-  perspective: 1000px; /* Add perspective for 3D effects */
+  perspective: 1000px;
+  position: relative;
+  padding: 10px;
+  overflow: visible;
 }
 
-/* Ensure all page-specific card containers follow the same 2-column layout */
+/* Все страницы — одинаковая сетка */
 .home-page .card-container,
 .about-page .card-container,
 .services-page .card-container,
@@ -17,13 +23,17 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-/* Rule for the last card when it's alone in a row */
+/* Последняя карточка, если одна в строке */
 .card-container > *:last-child:nth-child(2n+1) {
   grid-column: 1 / -1;
   max-width: 650px;
   margin: 0 auto;
   width: 100%;
 }
+
+/* =========================
+   Card
+   ========================= */
 
 .card {
   background-color: white;
@@ -43,22 +53,12 @@
 .card:hover {
   transform: translateY(-10px) scale(1.05);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  z-index: 10; /* Increase z-index on hover to ensure it appears above other cards */
+  z-index: 10;
 }
 
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  width: 100%;
-  perspective: 1000px;
-  position: relative; /* Add position relative */
-  padding: 10px; /* Add padding to prevent cutoff */
-  overflow: visible; /* Ensure overflow is visible */
-}
-
+/* Верхняя цветная линия */
 .card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -70,23 +70,20 @@
   transform: translateZ(10px);
 }
 
-.card:hover {
-  transform: translateY(-10px) scale(1.05); /* Removed rotation, added scale for zoom effect */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
 .card:hover::before {
   opacity: 1;
 }
 
+/* Световой эффект */
 .card::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 60%);
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
@@ -96,20 +93,32 @@
   opacity: 1;
 }
 
+/* =========================
+   Card icon
+   ========================= */
+
 .card-icon {
   font-size: 3rem;
   color: #0056b3;
   margin-bottom: 1.5rem;
-  transition: transform 0.5s ease;
   display: inline-block;
-  background: linear-gradient(135deg, rgba(0, 86, 179, 0.1) 0%, rgba(0, 86, 179, 0) 80%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 86, 179, 0.1) 0%,
+    rgba(0, 86, 179, 0) 80%
+  );
   padding: 1rem;
   border-radius: 50%;
+  transition: transform 0.5s ease;
 }
 
 .card:hover .card-icon {
   transform: rotateY(180deg);
 }
+
+/* =========================
+   Titles
+   ========================= */
 
 .card h3 {
   margin-bottom: 1rem;
@@ -120,7 +129,7 @@
 }
 
 .card h3::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 40px;
   height: 2px;
@@ -134,7 +143,10 @@
   width: 60px;
 }
 
-/* Enhanced styles for cards and elements */
+/* =========================
+   Links
+   ========================= */
+
 .card-link {
   display: inline-block;
   margin-top: 1rem;
@@ -146,7 +158,7 @@
 }
 
 .card-link::after {
-  content: '→';
+  content: "→";
   position: absolute;
   right: 0;
   top: 50%;
@@ -163,7 +175,28 @@
   transform: translate(5px, -50%);
 }
 
-/* Glass card effect */
+/* =========================
+   QR IMAGE — ЦЕНТРИРОВАНИЕ
+   ========================= */
+
+.qr-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.qr-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+/* =========================
+   Glass card (optional)
+   ========================= */
+
 .glass-card {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);

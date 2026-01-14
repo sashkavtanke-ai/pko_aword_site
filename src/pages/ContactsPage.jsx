@@ -16,7 +16,7 @@ const ContactsPage = () => {
                 <FaPhone />
               </div>
               <h3>Горячая линия</h3>
-              <p><a href="tel:+78001234567">8 981 763 89 00</a></p>
+              <p><a href="tel:88004441301">8 800 444 13 01</a></p>
               <div className="contact-info">
                 <FaClock /> <span>Время работы:</span>
                 <p>Понедельник - Пятница: 9:00 - 18:00</p>
@@ -36,7 +36,7 @@ const ContactsPage = () => {
                 </p>
                 <p><strong>Фактический адрес:</strong></p>
                 <p>
-                  197342, город Санкт-Петербург, Торжковская ул, д. 5 литера А, помещ. 13-н ком. 93 
+                  197342, город Санкт-Петербург, Торжковская ул, д. 5 литера А, офис 417 
                 </p>
               </div>
             </div>
@@ -53,21 +53,12 @@ const ContactsPage = () => {
                 <p><a href="mailto:debtors@collector.ru">debtors@pko-forward.ru</a></p>
                 <p><strong>Для партнеров:</strong></p>
                 <p><a href="mailto:partners@collector.ru">partners@pko-forward.ru</a></p> */}
-                <p><strong>Директор:</strong></p>
-                <p><a href="mailto:george_pc@bk.ru">george_pc@bk.ru</a></p>
+                <p><strong>Приём обращений:</strong></p>
+                <p><a href="mailto:info@pko-aword.ru">info@pko-aword.ru</a></p>
               </div>
             </div>
           </div>
-          
-          <div className="contact-form-section" style={{ marginTop: '3rem' }}>
-            <div className="section-title">
-              <h2>Форма обратной связи</h2>
-            </div>
-            <div className="contact-form-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
-              <ContactForm />
-            </div>
-          </div>
-          
+                            
           <div className="map-section" style={{ marginTop: '3rem' }}>
             <div className="section-title">
               <h2>Карта проезда</h2>

@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { FaPaperPlane, FaExclamationCircle } from 'react-icons/fa';
+import { FaPaperPlane } from 'react-icons/fa';
 
 const ContactForm = () => {
-  // Состояния для полей формы
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,87 +10,76 @@ const ContactForm = () => {
     agreement: false
   });
 
-  // Состояния для ошибок валидации
   const [errors, setErrors] = useState({});
-  
-  // Состояние для отображения сообщения об успешной отправке
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
-  // Состояние для отображения процесса отправки
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Обработчик изменения полей формы
+  // обработчик изменения полей
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value
     });
-    
-    // Очищаем ошибку при изменении поля
+
     if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: ''
-      });
+      setErrors({ ...errors, [name]: '' });
     }
   };
 
-  // Валидация формы
+  // валидация
   const validateForm = () => {
     const newErrors = {};
-    
-    // Проверка имени
+
     if (!formData.name.trim()) {
       newErrors.name = 'Пожалуйста, введите ваше имя';
     }
-    
-    // Проверка email
+
     if (!formData.email.trim()) {
       newErrors.email = 'Пожалуйста, введите ваш email';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Пожалуйста, введите корректный email';
     }
-    
-    // Проверка телефона (опционально)
+
     if (formData.phone && !/^\+?[0-9\s-()]{10,20}$/.test(formData.phone)) {
       newErrors.phone = 'Пожалуйста, введите корректный номер телефона';
     }
-    
-    // Проверка сообщения
+
     if (!formData.message.trim()) {
       newErrors.message = 'Пожалуйста, введите ваше сообщение';
     }
-    
-    // Проверка согласия на обработку персональных данных
+
     if (!formData.agreement) {
       newErrors.agreement = 'Необходимо согласие на обработку персональных данных';
     }
-    
+
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   };
 
-  // Обработчик отправки формы
+  // отправка формы
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Валидация формы перед отправкой
-    if (!validateForm()) {
+
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      const firstErrorField = Object.keys(validationErrors)[0];
+      document.getElementById(firstErrorField)?.focus();
       return;
     }
-    
-    // Имитация отправки данных на сервер
+
     setIsSubmitting(true);
-    
     try {
-      // Здесь будет код для отправки данных на сервер
-      // Например, с использованием fetch или axios
-      
-      // Имитация задержки ответа сервера
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Очистка формы после успешной отправки
+      const response = await fetch('https://n8n.rightformoney.ru/webhook/send-contact-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка сервера');
+      }
+
       setFormData({
         name: '',
         email: '',
@@ -99,20 +87,14 @@ const ContactForm = () => {
         message: '',
         agreement: false
       });
-      
-      // Показываем сообщение об успешной отправке
+
       setIsSubmitted(true);
-      
-      // Скрываем сообщение через 5 секунд
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
+      setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
-      // Обработка ошибок при отправке
       console.error('Ошибка при отправке формы:', error);
       setErrors({
         ...errors,
-        submit: 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.'
+        submit: 'Произошла ошибка при отправке формы. Попробуйте позже.'
       });
     } finally {
       setIsSubmitting(false);
@@ -121,21 +103,20 @@ const ContactForm = () => {
 
   return (
     <div className="contact-form-container">
-      <h3>Форма обратной связи</h3>
       <p>Заполните форму ниже, и наши специалисты свяжутся с вами в ближайшее время.</p>
-      
+
       {isSubmitted && (
-        <div className="alert alert-success">
+        <div className="alert alert-success" role="alert">
           <p>Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.</p>
         </div>
       )}
-      
+
       {errors.submit && (
-        <div className="alert alert-danger">
+        <div className="alert alert-danger" role="alert">
           <p>{errors.submit}</p>
         </div>
       )}
-      
+
       <form onSubmit={handleSubmit} className="contact-form">
         <div className="form-group">
           <label htmlFor="name">Ваше имя *</label>
@@ -143,6 +124,7 @@ const ContactForm = () => {
             type="text"
             id="name"
             name="name"
+            aria-required="true"
             value={formData.name}
             onChange={handleChange}
             className={`form-control ${errors.name ? 'is-invalid' : ''}`}
@@ -150,13 +132,14 @@ const ContactForm = () => {
           />
           {errors.name && <div className="invalid-feedback">{errors.name}</div>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="email">Email *</label>
           <input
             type="email"
             id="email"
             name="email"
+            aria-required="true"
             value={formData.email}
             onChange={handleChange}
             className={`form-control ${errors.email ? 'is-invalid' : ''}`}
@@ -164,7 +147,7 @@ const ContactForm = () => {
           />
           {errors.email && <div className="invalid-feedback">{errors.email}</div>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="phone">Телефон</label>
           <input
@@ -179,26 +162,28 @@ const ContactForm = () => {
           />
           {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="message">Сообщение *</label>
           <textarea
             id="message"
             name="message"
+            aria-required="true"
             value={formData.message}
             onChange={handleChange}
             className={`form-control ${errors.message ? 'is-invalid' : ''}`}
             rows="5"
             disabled={isSubmitting}
-          ></textarea>
+          />
           {errors.message && <div className="invalid-feedback">{errors.message}</div>}
         </div>
-        
+
         <div className="form-group form-check">
           <input
             type="checkbox"
             id="agreement"
             name="agreement"
+            aria-required="true"
             checked={formData.agreement}
             onChange={handleChange}
             className={`form-check-input ${errors.agreement ? 'is-invalid' : ''}`}
@@ -212,19 +197,30 @@ const ContactForm = () => {
           </label>
           {errors.agreement && <div className="invalid-feedback">{errors.agreement}</div>}
         </div>
-        
-        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-          {isSubmitting ? (
-            <span>
-              <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-              Отправка...
-            </span>
-          ) : (
-            <span>
-              <FaPaperPlane className="mr-2" /> Отправить сообщение
-            </span>
-          )}
-        </button>
+
+        <div className="text-center" style={{ marginTop: '1.5rem' }}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            aria-label="Отправить форму"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <span>
+                <span
+                  className="spinner-border spinner-border-sm mr-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Отправка...
+              </span>
+            ) : (
+              <span>
+                <FaPaperPlane className="mr-2" /> Отправить сообщение
+              </span>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );

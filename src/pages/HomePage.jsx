@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaBalanceScale, FaHandshake, FaShieldAlt, FaFileAlt } from 'react-icons/fa';
+import ContactForm from '../components/ContactForm';
 
 const HomePage = () => {
   return (
@@ -84,14 +85,16 @@ const HomePage = () => {
       <section className="section">
         <div className="container">
           <div className="section-title">
-            <h2>Свяжитесь с нами</h2>
           </div>
-          <div className="text-center">
-            <p>Горячая линия: <a href="tel:+78001234567">8 981 763 89 00</a></p>
-            <p>Время работы: Пн-Пт с 9:00 до 18:00</p>
-            <Link to="/contacts" className="btn-primary">Все контакты</Link>
+          <div className="contact-form-section" style={{ marginTop: '3rem' }}>
+            <div className="section-title">
+              <h2>Форма обратной связи</h2>
+            </div>
+            <div className="contact-form-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
+              <ContactForm />
+            </div>
           </div>
-        </div>
+          </div>
       </section>
     </div>
   );

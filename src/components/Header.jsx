@@ -24,7 +24,7 @@ const Header = () => {
         
         <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className={`nav-link ${isActive('/')}`}>Главная</Link>
-          <Link to="/about" className={`nav-link ${isActive('/about')}`}>О компании</Link>
+          <Link to="/about" className={`nav-link ${isActive('/about')}`}>РЕКВИЗИТЫ</Link>
           <Link to="/services" className={`nav-link ${isActive('/services')}`}>Услуги</Link>
           <Link to="/debtors" className={`nav-link ${isActive('/debtors')}`}>Должникам</Link>
           <Link to="/documents" className={`nav-link ${isActive('/documents')}`}>Документы</Link>
