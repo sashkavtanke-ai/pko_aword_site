@@ -245,3 +245,27 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== FINAL FIX: About page grid ===== */
+.about-page .card-container {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+/* Отключаем любое растягивание карточек на About */
+.about-page .card-container > * {
+  grid-column: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  width: auto !important;
+}
+
+/* Защита от длинных строк (ИНН, счета и т.п.) */
+.about-page .card {
+  min-width: 0;
+}
+
+.about-page .card p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
