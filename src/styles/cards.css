@@ -20,7 +20,7 @@
 .documents-page .card-container,
 .contacts-page .card-container,
 .debtors-page .card-container {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* Последняя карточка, если одна в строке */
