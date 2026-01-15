@@ -90,7 +90,7 @@ const DebtorsPage = () => {
           <div className="section-info" style={{ marginTop: '2rem', textAlign: 'center' }}>
             <h3>Способы связи</h3>
             <p>Если у вас возникли вопросы, вы можете связаться с нами:</p>
-            <p>Телефон горячей линии: <a href="tel:88004441301">8 800 444 13 01</a> (Пн-Пт: 9:00-18:00)</p>
+            <p>Телефон горячей линии: <a href="tel:88004441301">8 800 444 13 01</a> (Пн-Пт: 10:00-18:00)</p>
             <p>Email: <a href="mailto:info@pko-aword.ru">info@pko-aword.ru</a></p>
             <Link to="/contacts" className="btn-primary">Все контакты</Link>
           </div>
