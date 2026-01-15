@@ -39,7 +39,7 @@ const DebtorsPage = () => {
               <Link to="/documents/law">Подробнее о ФЗ-230</Link>
             </div>
             
-            {/* <div className="card">
+            {<div className="card">
               <div className="card-icon">
                 <FaCreditCard />
               </div>
@@ -47,12 +47,10 @@ const DebtorsPage = () => {
               <p>Вы можете погасить задолженность следующими способами:</p>
               <ul>
                 <li><strong>Банковский перевод</strong> - по реквизитам, указанным в уведомлении о задолженности</li>
-                <li><strong>Онлайн-оплата</strong> - через личный кабинет на нашем сайте</li>
-                <li><strong>Платежные терминалы</strong> - в терминалах самообслуживания</li>
-                <li><strong>В офисе компании</strong> - наличными или банковской картой</li>
+                <li><strong>Онлайн-оплата</strong> - по QR-коду на нашем сайте через приложение вашего банка</li>
               </ul>
               <p>Все платежи проходят через защищенные каналы связи с использованием SSL-шифрования.</p>
-            </div> */}
+            </div> }
             
             <div className="card" id="faq">
               <div className="card-icon">

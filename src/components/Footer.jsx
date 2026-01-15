@@ -42,7 +42,7 @@ const Footer = () => {
             <ul className="footer-links">
               <li className="footer-link">
                 <FaPhone /> <a href="tel:88004441301">8 800 444 13 01</a>
-                <div className="small">Пн-Пт: 9:00-18:00</div>
+                <div className="small">Пн-Пт: 10:00-18:00</div>
               </li>
               <li className="footer-link">
                 <FaEnvelope /> <a href="mailto:info@pko-aword.ru">info@pko-aword.ru</a>
