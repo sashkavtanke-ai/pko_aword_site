@@ -16,6 +16,8 @@ server {
   root /usr/share/nginx/html;
   index index.html;
 
+  location ^~ /documents/ { try_files $uri =404; }
+
   location / { try_files $uri /index.html; }
 
   location ~* \.(?:js|css|png|jpg|jpeg|gif|svg|ico|woff2?)$ {

@@ -39,7 +39,6 @@ const DocumentsPage = () => {
               <h3>Документы</h3>
               <p>Документы ООО "ПКО "Аворд":</p>
               <ul>
-                <li><a href="/documents/egrul.pdf" download>Выписка из ЕГРЮЛ (PDF)</a></li>
                 {/* <li><a href="/documents/ogrn.pdf" download>Свидетельство ИНН (PDF)</a></li> 
                 */}
               </ul>
