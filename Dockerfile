@@ -8,7 +8,7 @@ ENV NODE_ENV=production
 RUN npm run build
 
 # Stage 2: serve
-FROM nginx:1.27-alpine
+FROM nginx:1.27-alpine AS web
 COPY <<'CONF' /etc/nginx/conf.d/default.conf
 server {
   listen 8080;
@@ -17,6 +17,15 @@ server {
   index index.html;
 
   location ^~ /documents/ { try_files $uri =404; }
+
+  location = /api/contact {
+    client_max_body_size 16k;
+    proxy_pass http://172.18.0.1:18080;
+    proxy_connect_timeout 3s;
+    proxy_read_timeout 15s;
+  }
+
+  location ^~ /api/ { return 404; }
 
   location / { try_files $uri /index.html; }
 
@@ -33,3 +42,12 @@ CONF
 COPY --from=build /app/dist/ /usr/share/nginx/html/
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
+
+FROM node:20-alpine AS api
+WORKDIR /app
+COPY server/package*.json ./
+RUN npm ci --omit=dev
+COPY server/ ./server/
+ENV NODE_ENV=production
+USER node
+CMD ["node", "server/index.js"]

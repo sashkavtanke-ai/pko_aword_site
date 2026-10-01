@@ -1,12 +1,35 @@
 services:
   pko_aword:
-    build: .
+    build:
+      context: .
+      target: web
     container_name: pko_aword
     restart: unless-stopped
     ports:
       - 8080:8080
     networks:
       - edge_net
+
+  pko_contact_api:
+    build:
+      context: .
+      target: api
+    container_name: pko_contact_api
+    restart: unless-stopped
+    network_mode: host
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://172.18.0.1:18080/health').then(r => { if (!r.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      HOST: 172.18.0.1
+      PORT: 18080
+      SMTP_HOST: 127.0.0.1
+      SMTP_PORT: 25
+      MAIL_TO: info@pko-aword.ru
+      MAIL_FROM: noreply@pko-aword.ru
 
 networks:
   edge_net:

@@ -70,7 +70,7 @@ const ContactForm = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://n8n.rightformoney.ru/webhook/send-contact-form', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -92,10 +92,10 @@ const ContactForm = () => {
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
       console.error('Ошибка при отправке формы:', error);
-      setErrors({
-        ...errors,
+      setErrors((currentErrors) => ({
+        ...currentErrors,
         submit: 'Произошла ошибка при отправке формы. Попробуйте позже.'
-      });
+      }));
     } finally {
       setIsSubmitting(false);
     }

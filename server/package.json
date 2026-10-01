@@ -1,0 +1,8 @@
+{
+  "name": "pko-contact-api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "nodemailer": "^10.0.13"
+  }
+}

@@ -57,11 +57,19 @@ npm run lint
 
 1.  **Сборка образа:**
     ```bash
-    docker build -t pko-avord .
+    docker build --target web -t pko-aword-web .
     ```
 
 2.  **Запуск контейнера:**
     ```bash
-    docker run -p 80:80 pko-avord
+    docker run -p 8080:8080 pko-aword-web
     ```
-    Сайт будет доступен по адресу `http://localhost`.
+    Статические страницы будут доступны по адресу `http://localhost:8080`. Отправка формы требует API и локального Postfix; на VPS оба сервиса запускаются через `docker compose up -d --build`.
+
+## Форма обратной связи
+
+Форма на главной странице отправляет JSON в `POST /api/contact`. Nginx направляет этот запрос в API, который работает как сервис `pko_contact_api` из того же Compose-файла. API передаёт письмо локальному Postfix на `127.0.0.1:25`; получатель задан переменной `MAIL_TO` и по умолчанию равен `info@pko-aword.ru`. Данные формы и почтовые настройки не попадают в клиентскую сборку.
+
+На VPS сервис API использует сеть хоста, чтобы обращаться к Postfix, который слушает только loopback. API слушает шлюз Docker-сети `edge_net` (`172.18.0.1:18080`), а порт `18080` должен быть доступен только контейнерам этой сети. При изменении подсети или шлюза обновите `HOST` в `docker-compose.yml`, адрес `proxy_pass` в `Dockerfile` и правило firewall. Порт API не открывайте в интернет.
+
+Для локального запуска API выполните `npm ci --prefix server`, затем `node server/index.js`. По умолчанию он слушает `127.0.0.1:18080` и ожидает локальный Postfix. Для проверки используйте `npm test` и `npm run lint`.
